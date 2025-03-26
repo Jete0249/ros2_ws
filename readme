@@ -1,0 +1,81 @@
+This README explains how to set up and run the mapping process for a TurtleBot3 robot using ROS2. The objective is to create a custom environment for the TurtleBot and use an autonomous ROS2 mapping node to generate a map of the environment. This process involves setting up the robot's simulation environment, installing necessary dependencies, and creating an autonomous mapping node to explore and map the environment.
+
+1. Install Requirements (PC Setup)
+1.1 Install Gazebo and TurtleBot3 Packages
+To get started with the simulation, install Gazebo and the TurtleBot3 packages. Gazebo is a simulation tool that helps visualize the robot's actions in a virtual world. The TurtleBot3 package includes the robot's model and control functionalities.
+
+1.2 Install Cartographer (SLAM method)
+Cartographer is used for Simultaneous Localization and Mapping (SLAM), which allows the robot to map its environment while keeping track of its location. Install the necessary Cartographer packages to enable this feature.
+
+1.3 Install Navigation2 (For future navigation tasks)
+Navigation2 provides the framework needed for autonomous navigation. Although not immediately needed for mapping, it will be useful for future tasks related to autonomous navigation and path planning.
+
+1.4 Install TurtleBot3 Packages
+The TurtleBot3 packages are essential for enabling communication between ROS2 and the TurtleBot3 robot. These packages include messages for interacting with the robot's sensors and controlling its movement.
+
+2. Configure Environment Variables
+2.1 Add TurtleBot3 ROS Domain ID
+To set up the ROS environment for your TurtleBot3 robot, you need to specify a domain ID. This configuration will ensure that your robot communicates properly with other ROS nodes.
+
+2.2 Resolve Gazebo Issues
+Gazebo may have some configuration issues, which can be resolved by sourcing the appropriate setup script. This step ensures that Gazebo works seamlessly with ROS2.
+
+3. Gazebo Simulation Setup
+3.1 Visualize Simulation Data in RViz2
+RViz2 is a tool for visualizing sensor data from the robot. Once your simulation is running, you can use RViz2 to observe how the robot perceives its environment using its LiDAR sensor.
+
+3.2 SLAM Simulation
+Simultaneous Localization and Mapping (SLAM) allows the robot to build a map of its environment while keeping track of its position. This is achieved using Cartographer as the SLAM method.
+
+3.3 Launch the Simulation World
+Before starting the SLAM process, you must launch the simulation environment that contains the robot. This simulation allows the robot to move around and explore a virtual environment.
+
+3.4 Run the SLAM Node
+After starting the simulation, you can launch the SLAM node to begin the mapping process. This node will help the robot create a map of the environment as it moves.
+
+3.5 Control the Robot
+To map the environment autonomously, you can control the robot's movement manually. This will allow you to explore the environment and generate the map.
+
+4. Build a Custom Environment
+4.1 Create a Custom World in Gazebo
+To practice mapping, you can create a custom environment in Gazebo. This environment should have a variety of objects that allow the robot to practice mapping. The custom world should be appropriately sized to challenge the robot, but not too large or too small.
+
+4.2 Save the Custom Environment
+Once you've designed your custom world, save it as a .world file. This file defines the layout of the environment, including walls and objects the robot can interact with.
+
+4.3 Launch the Simulation in Your Custom World
+After creating and saving your custom world, you can launch the simulation in that world. The robot will now navigate and map this environment.
+
+5. Create an Autonomous Navigation Node for Mapping
+5.1 Understanding the Required Topics and Messages
+Before creating an autonomous mapping node, it's important to understand the communication topics used by the robot:
+
+The /cmd_vel topic is used for controlling the robot's movement, where the robot receives velocity commands.
+The /scan topic is used for receiving LiDAR data, which the robot uses to detect obstacles in its environment.
+5.2 Creating the Mapping Node
+The autonomous mapping node will listen to LiDAR data and control the robot's movement. The logic inside the node allows the robot to avoid obstacles and explore the environment autonomously. By subscribing to the /scan topic and publishing to the /cmd_vel topic, the robot can navigate and map its surroundings without user intervention.
+
+5.3 Publishing Velocity Commands
+The node will continuously publish velocity commands to control the robot. These commands include both linear and angular velocities, allowing the robot to move forward, turn, and avoid obstacles based on its surroundings.
+
+5.4 Node Initialization
+The mapping node is initialized with a specific name, and it sets up publishers and subscribers to handle the robot's movement and sensor data. The publisher sends movement commands, and the subscriber listens for LiDAR data to determine how the robot should navigate.
+
+5.5 Obstacle Detection and Navigation
+The mapping node uses data from the LiDAR sensor to detect obstacles in the robot's path. If an obstacle is detected within a certain distance, the robot will adjust its movement accordingly, either by turning or slowing down to avoid collisions. The node uses logic to determine the best course of action based on the data it receives.
+
+6. Running the Mapping Process
+6.1 Launch the Simulation
+After setting up the custom environment and the autonomous mapping node, you can launch the simulation with your custom world. This will start the robot in the simulation and allow it to begin navigating the environment.
+
+6.2 Launch SLAM
+Once the simulation world is running, launch the SLAM node to begin the mapping process. This will enable the robot to use Cartographer to build a map of its surroundings while simultaneously estimating its location.
+
+6.3 Run the Mapping Node
+With the SLAM node running, launch your custom mapping node to allow the robot to autonomously navigate and map the environment. The mapping node will handle obstacle avoidance and exploration.
+
+6.4 Save the Map
+After the robot has fully mapped the environment, you can save the generated map. This map will be stored in a format that can be used for navigation in future tasks.
+
+7. Creating a Launch File for Mapping
+To simplify the process of launching all required nodes, you can create a custom launch file. This launch file will automatically start the simulation, the SLAM node, and the mapping node. It combines all the necessary components into one streamlined process.
