@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<testsuites name="/ros2_ws/autoware_map/scenario_test_runner" failures="1" errors="0" tests="1">
+  <testsuite name="t4v2" failures="1" errors="0" tests="1">
+    <testcase name="t4v2">
+      <failure type="SimulationFailure" message="CustomCommandAction typed &quot;exitFailure&quot; was triggered by the anonymous Condition (OpenSCENARIO.Storyboard.Story[0].Act[&quot;_EndCondition&quot;].ManeuverGroup[0].Maneuver[0].Event[1].StartTrigger.ConditionGroup[0].Condition[0]): Is the simulation time (= 30.000000000000653699316899292171) is greaterThan 30.000000000000000000000000000000?" />
+    </testcase>
+  </testsuite>
+</testsuites>
